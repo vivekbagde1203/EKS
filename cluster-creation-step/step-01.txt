@@ -9,8 +9,7 @@ eksctl create cluster --name=<cluster name> \
 		      --zones=<zone name> \
 		      --without-nodegroup
 
-Command:
-
+#Command:
 eksctl create cluster --name=eksdemo \
                       --region=ap-south-1 \
 		      --zones=ap-south-1a,ap-south-1b \
