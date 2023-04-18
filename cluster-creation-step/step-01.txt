@@ -1,0 +1,24 @@
+#Create Eks Cluster Without NodeGroup:
+
+#Pre-requisite:
+# Install kubectl, eksctl and awscli
+
+#Syntax:
+eksctl create cluster --name=<cluster name> \
+                      --region=<region name> \
+		      --zones=<zone name> \
+		      --without-nodegroup
+
+Command:
+
+eksctl create cluster --name=eksdemo \
+                      --region=ap-south-1 \
+		      --zones=ap-south-1a,ap-south-1b \
+		      --without-nodegroup
+
+#To check List of cluster:
+eksctl get clusters
+
+#To check nodes in cluster
+kubectl get nodes
+
