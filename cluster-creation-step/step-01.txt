@@ -26,3 +26,56 @@ eksctl delete cluster <clustername>
 eksctl delete cluster eksdemo
 
 
+========================
+#Create OIDC IAM provider and then create worker-nodegroup
+To enable and use IAM roles for k8s service accounts on our eks cluster we must create and associate oidc identity
+eksctl utils associate-iam-oidc-providers \
+             --region <regionName> \
+	     --cluster <clusterName> \
+	     --approve 
+	     
+#Create Keypair named: kube-demo  (you can give any name which you want)
+name: kube-demo
+
+#To Create Node Group
+eksctl create nodegroup --cluster=clustername \
+                        --region=ap-south-1 \
+			--name=eksnodegrouppublic \
+			--node-type=t3.medium \
+			--nodes=2 \
+			--nodes-min=2 \
+			--nodes-max=4 \
+			--nodes-volume-size=20 \
+			--ssh-access \
+			--ssh-public-key=<private-key> \
+			--managed \
+			--asg-access \
+			--external-access \
+			--full-ecr-access \
+			--appmesh-access \
+			--alb-ingress-access \
+			--asg-access \
+			--external-dns-access \
+			--full-ecr-access
+			
+			
+#Once worker-nodegroup created then check command:
+kubectl get nodes
+
+#To List cluster
+eksctl get cluster
+
+#To List NodeGroup in cluster
+eksctl get nodegroup --cluster=<clusterName>
+
+#To list node in current cluster
+kubectl get nodes
+
+#our context should be automatically change to new cluster
+kubectl config view --minify
+
+#Delete workernodegroup
+eksctl delete nodegroup --cluster=<clusterName> --name=<nodegroupName>
+
+
+
